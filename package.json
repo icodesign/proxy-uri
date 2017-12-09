@@ -1,0 +1,37 @@
+{
+  "name": "ss-uri",
+  "version": "1.0.0",
+  "description": "SS URI parser and generator",
+  "main": "./dist/ss-uri.js",
+  "types": "./dist/main.d.ts",
+  "author": "icodesign",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf ./compiled ./dist",
+    "test": "jest --coverage --no-cache --config ./jest.config.json",
+    "test:nocover": "jest --config ./jest.config.json",
+    "test:watch": "jest --watch --config ./jest.config.json",
+    "build": "tsc -p ./tsconfig.json --pretty",
+    "build:debug": "tsc -p ./tsconfig.json --pretty",
+    "build:prod": "tsc -p ./tsconfig.json --pretty",
+    "deploy": "yarn test && yarn clean && yarn build:prod && webpack --config ./webpack.config.js"
+  },
+  "devDependencies": {
+    "@types/jest": "^21.1.8",
+    "awesome-typescript-loader": "^3.4.1",
+    "jest": "^21.2.1",
+    "rollup": "^0.52.1",
+    "source-map-loader": "^0.2.3",
+    "tslint": "^5.8.0",
+    "tslint-config-prettier": "^1.6.0",
+    "tslint-config-standard": "^7.0.0",
+    "typescript": "^2.6.2",
+    "uglifyjs-webpack-plugin": "^1.1.2",
+    "webpack": "^3.10.0",
+    "ts-jest": "^21.2.4"
+  },
+  "dependencies": {
+    "@types/js-base64": "^2.3.0",
+    "js-base64": "^2.4.0"
+  }
+}
