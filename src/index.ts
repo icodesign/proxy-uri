@@ -43,7 +43,7 @@ class SSURI {
   
   static generateSS(isSIP002: boolean, host: string, port: number, method: string, password: string, remark?: string): string {
     if (isSIP002) {
-      let rawUserInfo = method + ":" + password;
+      let rawUserInfo = method.toLowerCase() + ":" + password;
       let encodedUserInfo = Base64.encode(rawUserInfo);
       let uri = SSScheme.SS + encodedUserInfo + "@" + host + ":" + port;
       if (remark) {
@@ -51,7 +51,7 @@ class SSURI {
       }
       return uri;
     } else {
-      let rawURI = method + ":" + password + "@" + host + ":" + port;
+      let rawURI = method.toLowerCase() + ":" + password + "@" + host + ":" + port;
       let uri = SSScheme.SS + Base64.encode(rawURI);
       if (remark) {
         uri += "#" + remark;
@@ -61,7 +61,7 @@ class SSURI {
   }
 
   static generateSSR(host: string, port: number, method: string, password: string, remark?: string, protocol: string = "origin", protocolParam?: string, obfs: string = "plain", obfsParam?: string): string {
-    let mainComponents = [host, port, protocol, method, obfs, Base64.encodeURI(password)];
+    let mainComponents = [host, port, protocol.toLowerCase(), method.toLowerCase(), obfs.toLowerCase(), Base64.encodeURI(password)];
     let paramComponents = new Map<string, string>()
     if (protocolParam) {
       paramComponents.set("protoparam", Base64.encodeURI(protocolParam));
@@ -123,7 +123,7 @@ class SSURI {
       let userInfoRegex = /^(.+?):(.+)/gi
       let userInfoMatch = userInfoRegex.exec(userInfo);
       if (userInfoMatch && userInfoMatch[1] && userInfoMatch[2]) {
-        proxy.authscheme = userInfoMatch[1];
+        proxy.authscheme = userInfoMatch[1].toLowerCase();
         proxy.password = userInfoMatch[2];
         return proxy;
       }
@@ -145,7 +145,7 @@ class SSURI {
       if (coreComps && coreComps[1] && coreComps[2] && coreComps[3] && coreComps[4]) {
         proxy.host = coreComps[3];
         proxy.port = Number(coreComps[4]);
-        proxy.authscheme = coreComps[1];
+        proxy.authscheme = coreComps[1].toLowerCase();
         proxy.password = coreComps[2];
         return proxy;
       }
@@ -169,9 +169,9 @@ class SSURI {
       proxy.scheme = SSScheme.SSR;
       proxy.host = coreMatch[1];
       proxy.port = Number(coreMatch[2]);
-      proxy.protocol = coreMatch[3];
-      proxy.authscheme = coreMatch[4];
-      proxy.obfs = coreMatch[5];
+      proxy.protocol = coreMatch[3].toLowerCase();
+      proxy.authscheme = coreMatch[4].toLowerCase();
+      proxy.obfs = coreMatch[5].toLowerCase();
       proxy.password = password;
       let obfsParamRegex = new RegExp(`obfsparam=(${SSURI.base64URLSafePattern})`, "gi");
       let obfsParamMatch = obfsParamRegex.exec(decoded);

@@ -7,7 +7,7 @@
   "author": "icodesign",
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf ./compiled ./dist",
+    "clean": "rimraf ./compiled ./dist",
     "test": "jest --coverage --no-cache --config ./jest.config.json",
     "test:nocover": "jest --config ./jest.config.json",
     "test:watch": "jest --watch --config ./jest.config.json",

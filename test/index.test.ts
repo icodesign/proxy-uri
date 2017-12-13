@@ -4,7 +4,7 @@ describe("test SS URI generate", () => {
   it("Generate SS URI", () => {
     // ss://bf-cfb:rn23!/YE:-WI2^249T@#a@192.168.100.1:8888#example-server
     // ss://YmYtY2ZiOnJuMjMhL1lFOi1XSTJeMjQ5VEAjYUAxOTIuMTY4LjEwMC4xOjg4ODg=#example-server
-    expect(SSURI.generate(SSScheme.SS, false, "192.168.100.1", 8888, "bf-cfb", "rn23!/YE:-WI2^249T@#a", "example-server")).toBe("ss://YmYtY2ZiOnJuMjMhL1lFOi1XSTJeMjQ5VEAjYUAxOTIuMTY4LjEwMC4xOjg4ODg=#example-server");
+    expect(SSURI.generate(SSScheme.SS, false, "192.168.100.1", 8888, "bf-cfB", "rn23!/YE:-WI2^249T@#a", "example-server")).toBe("ss://YmYtY2ZiOnJuMjMhL1lFOi1XSTJeMjQ5VEAjYUAxOTIuMTY4LjEwMC4xOjg4ODg=#example-server");
   })
 
   it("Generate SS URI without remark", () => {
@@ -15,7 +15,7 @@ describe("test SS URI generate", () => {
 
   it("Generate SS SIP002 URI", () => {
     // ss://YWVzLTEyOC1nY206dGVzdA==@192.168.100.1:8888#Dummy+profile+name
-    expect(SSURI.generate(SSScheme.SS, true, "192.168.100.1", 8888, "aes-128-gcm", "test", "Dummy+profile+name")).toBe("ss://YWVzLTEyOC1nY206dGVzdA==@192.168.100.1:8888#Dummy+profile+name");
+    expect(SSURI.generate(SSScheme.SS, true, "192.168.100.1", 8888, "AES-128-GCM", "test", "Dummy+profile+name")).toBe("ss://YWVzLTEyOC1nY206dGVzdA==@192.168.100.1:8888#Dummy+profile+name");
   })
 
   it("Generate SS SIP002 URI withour remark", () => {
@@ -45,6 +45,20 @@ describe("test SSR URI generate", () => {
 describe("test SS URI parse", () => {
   it("Proxy uri", () => {
     let uri = "sS://YmYtY2ZiOnJuMjMhL1lFOi1XSTJeMjQ5VEAjYUAxOTIuMTY4LjEwMC4xOjg4ODg#example-server"
+    let proxies = SSURI.parse(uri);
+    let expected = new SSProxy();
+    expected.scheme = SSScheme.SS;
+    expected.host = "192.168.100.1";
+    expected.port = 8888;
+    expected.authscheme = "bf-cfb";
+    expected.password = "rn23!/YE:-WI2^249T@#a";
+    expected.remark = "example-server";
+    expect(proxies.length).toBe(1);
+    expect(proxies[0]).toEqual(expected);
+  })
+
+  it("Proxy uri (capitalized)", () => {
+    let uri = "sS://YmYtQ0ZCOnJuMjMhL1lFOi1XSTJeMjQ5VEAjYUAxOTIuMTY4LjEwMC4xOjg4ODg=#example-server"
     let proxies = SSURI.parse(uri);
     let expected = new SSProxy();
     expected.scheme = SSScheme.SS;
@@ -88,6 +102,21 @@ describe("test SSR URI parse", () => {
     expected.password = "adno3^&1301@$%*(:";
     expected.protocol = "auth_sha1_v4";
     expected.obfs = "tls1.2_ticket_auth";
+    expect(proxies.length).toBe(1);
+    expect(proxies[0]).toEqual(expected);
+  })
+
+  it("SSR URI with no additional info (capitalized)", () => {
+    let uri = "ssr://MTkyLjE2OC4xMDAuMTo4ODg4Ok9SSUdJTjpiRi1DRkI6UExBSU46ZEdWemRB"
+    let proxies = SSURI.parse(uri);
+    let expected = new SSProxy();
+    expected.scheme = SSScheme.SSR;
+    expected.host = "192.168.100.1";
+    expected.port = 8888;
+    expected.authscheme = "bf-cfb";
+    expected.password = "test";
+    expected.protocol = "origin";
+    expected.obfs = "plain";
     expect(proxies.length).toBe(1);
     expect(proxies[0]).toEqual(expected);
   })
