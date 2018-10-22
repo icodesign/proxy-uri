@@ -243,7 +243,7 @@ describe("test HTTP URI parse", () => {
     expected.scheme = ProxyScheme.HTTPS;
     expected.host = "proxy.example.com";
     expected.port = 8848;
-    expected.username = "user";
+    expected.user = "user";
     expected.password = "pass";
     expected.remark = "🇯🇵日本";
     expect(proxies.length).toBe(1);
@@ -257,7 +257,7 @@ describe("test HTTP URI parse", () => {
     expected.scheme = ProxyScheme.HTTPS;
     expected.host = "proxy.example.com";
     expected.port = 8848;
-    expected.username = "user@/";
+    expected.user = "user@/";
     expected.password = "pa:ss"
     expect(proxies.length).toBe(1);
     expect(proxies[0]).toEqual(expected);
@@ -270,7 +270,7 @@ describe("test HTTP URI parse", () => {
     expected.scheme = ProxyScheme.HTTPS;
     expected.host = "proxy.example.com";
     expected.port = 8848;
-    expected.username = "user@/";
+    expected.user = "user@/";
     expected.password = "pa:ss";
     expected.remark = "🇯🇵日本";
     expect(proxies.length).toBe(1);

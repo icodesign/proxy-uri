@@ -12,7 +12,7 @@ class Proxy {
   host: string;
   port: number; 
   authscheme: string;
-  username?: string;
+  user?: string;
   password?: string;
   protocol?: string = "origin"; 
   protocolParam?: string; 
@@ -21,7 +21,7 @@ class Proxy {
   remark?: string;
 
   toURI(isSIP002: boolean = false): string {
-    return ProxyURI.generate(this.scheme, this.host, this.port, this.authscheme, this.username, this.password, this.remark, this.protocol, this.protocolParam, this.obfs, this.obfsParam, isSIP002)
+    return ProxyURI.generate(this.scheme, this.host, this.port, this.authscheme, this.user, this.password, this.remark, this.protocol, this.protocolParam, this.obfs, this.obfsParam, isSIP002)
   }
 }
 
@@ -30,16 +30,16 @@ class ProxyURI {
   static base64Pattern = "[A-Za-z0-9/=_-]+";  
   static base64URLSafePattern = "[A-Za-z0-9_-]+";  
 
-  static generate(scheme: ProxyScheme, host: string, port: number, method: string, username?: string, password?: string, protocol: string = "origin", protocolParam?: string, obfs: string = "plain", obfsParam?: string, remark?: string, isSIP002: boolean = true): string {
+  static generate(scheme: ProxyScheme, host: string, port: number, method: string, user?: string, password?: string, protocol: string = "origin", protocolParam?: string, obfs: string = "plain", obfsParam?: string, remark?: string, isSIP002: boolean = true): string {
     switch (scheme) {
       case ProxyScheme.SS:
         return ProxyURI.generateSS(host, port, method, password || "", remark, isSIP002)
       case ProxyScheme.SSR:
         return ProxyURI.generateSSR(host, port, method, password || "", remark, protocol, protocolParam, obfs, obfsParam)
       case ProxyScheme.HTTP:
-        return ProxyURI.generateHTTP(ProxyScheme.HTTP, host, port, username, password, remark)
+        return ProxyURI.generateHTTP(ProxyScheme.HTTP, host, port, user, password, remark)
       case ProxyScheme.HTTPS:
-        return ProxyURI.generateHTTP(ProxyScheme.HTTPS, host, port, username, password, remark)
+        return ProxyURI.generateHTTP(ProxyScheme.HTTPS, host, port, user, password, remark)
     }
   }    
   
@@ -84,10 +84,10 @@ class ProxyURI {
     return ProxyScheme.SSR + uri;
   }
 
-  static generateHTTP(scheme: ProxyScheme, host: string, port: number, username?: string, password?: string, remark?: string): string {
+  static generateHTTP(scheme: ProxyScheme, host: string, port: number, user?: string, password?: string, remark?: string): string {
     let uri: string
-    if (username || password) {
-      uri = scheme + encodeURIComponent(username || "") + ":" + encodeURIComponent(password || "") + "@" + host + ":" + port;
+    if (user || password) {
+      uri = scheme + encodeURIComponent(user || "") + ":" + encodeURIComponent(password || "") + "@" + host + ":" + port;
     } else {
       uri = scheme + host + ":" + port;
     }
@@ -247,7 +247,7 @@ class ProxyURI {
       proxy.scheme = scheme;
       proxy.host = authMatch[3];
       proxy.port = Number(authMatch[4]);
-      proxy.username = decodeURIComponent(authMatch[1]);
+      proxy.user = decodeURIComponent(authMatch[1]);
       proxy.password = decodeURIComponent(authMatch[2]);
       proxy.remark = parseRemarks(uri);
       return proxy;
