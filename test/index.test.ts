@@ -45,7 +45,7 @@ describe("test SSR URI generate", () => {
 describe("test HTTP URI generate", () => {
   it("Generate HTTP URI with no additional info", () => {
     // http://192.168.100.1:8848
-    expect(ProxyURI.generate(ProxyScheme.HTTP, "192.168.100.1", 8848, null, null, null, null, null, null, null, null, false)).toBe("http://192.168.100.1:8848");
+    expect(ProxyURI.generate(ProxyScheme.HTTP, "192.168.100.1", 8848, null, null, null, null, null, null, null, "Hello", false)).toBe("http://192.168.100.1:8848?remarks=Hello");
   })
 
   it("Generate HTTPS URI with plain credential", () => {
@@ -55,7 +55,7 @@ describe("test HTTP URI generate", () => {
 
   it("Generate HTTPS URI with url encoded credential", () => {
     // https://user%40%2f:pa%3ass@proxy.example.com:8848
-    expect(ProxyURI.generate(ProxyScheme.HTTPS, "proxy.example.com", 8848, null, "user@/", "pa:ss", null, null, null, null, null, false)).toBe("https://user%40%2F:pa%3Ass@proxy.example.com:8848");
+    expect(ProxyURI.generate(ProxyScheme.HTTPS, "proxy.example.com", 8848, null, "user@/", "pa:ss", null, null, null, null, "🇯🇵日本", false)).toBe("https://user%40%2F:pa%3Ass@proxy.example.com:8848?remarks=%F0%9F%87%AF%F0%9F%87%B5%E6%97%A5%E6%9C%AC");
   })
 });
 
