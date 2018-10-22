@@ -1,8 +1,8 @@
 {
-  "name": "ss-uri",
+  "name": "proxy-uri",
   "version": "1.0.0",
-  "description": "SS URI parser and generator",
-  "main": "./dist/ss-uri.js",
+  "description": "Proxy URI parser and generator",
+  "main": "./dist/proxy-uri.js",
   "types": "./dist/main.d.ts",
   "author": "icodesign",
   "license": "MIT",

@@ -5,7 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
   entry: './src/index.ts',
   output: {
-    filename: 'ss-uri.js',
+    filename: 'proxy-uri.js',
     path: path.resolve(__dirname, 'dist')
   },
   devtool: "source-map",
