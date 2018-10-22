@@ -1,4 +1,4 @@
-`ss-uri` is a utility to help generate or parse Shadowsocks(R)/HTTP(S) uri.
+`proxy-uri` is a utility to help generate or parse Shadowsocks(R)/HTTP(S) uri.
 
 ## Build from source
 ```
