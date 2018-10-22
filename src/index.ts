@@ -92,7 +92,7 @@ class ProxyURI {
       uri = scheme + host + ":" + port;
     }
     if (remark) {
-      uri += "#" + encodeURIComponent(remark);
+      uri += "?remarks=" + encodeURIComponent(remark);
     }
     return uri;
   }
