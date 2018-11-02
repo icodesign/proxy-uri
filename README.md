@@ -1,4 +1,7 @@
-`proxy-uri` is a utility to help generate or parse Shadowsocks(R)/HTTP(S) uri.
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+[![Build Status](https://travis-ci.org/icodesign/proxy-uri.svg?branch=master)](https://travis-ci.org/icodesign/proxy-uri)
+
+`proxy-uri` is a utility to help generate or parse Shadowsocks(R)/HTTP(S) URI.
 
 ## Build from source
 ```
