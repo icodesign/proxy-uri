@@ -19,6 +19,8 @@ import { ProxyURI } from 'proxy-uri';
 let proxies = ProxyURI.parse(uri);
 ```
 
+More examples can be found in [tests](https://github.com/icodesign/proxy-uri/blob/master/test/index.test.ts).
+
 ## License
 `MIT LICENSE`
 See `LICENSE` for more details.
