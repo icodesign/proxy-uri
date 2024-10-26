@@ -20,7 +20,7 @@
     "@types/jest": "^21.1.8",
     "awesome-typescript-loader": "^3.4.1",
     "jest": "^21.2.1",
-    "rollup": "^0.52.1",
+    "rollup": "^2.79.2",
     "source-map-loader": "^0.2.3",
     "tslint": "^5.8.0",
     "tslint-config-prettier": "^1.6.0",
